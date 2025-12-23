@@ -12,7 +12,7 @@ import rehypeAddImageClasses from './src/plugins/rehypeAddImageClasses.mjs';
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://astronaut.github.io',
+  site: 'https://wya-tt.github.io',
   base: 'astro-blog'
   markdown: {
     remarkPlugins: [remarkMath, remarkMermaidToHtml],
