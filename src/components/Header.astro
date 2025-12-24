@@ -116,7 +116,8 @@ const posts = await getCollection("blog");
     right: 0;
     display: flex;
     justify-content: center;
-    background: var(--color-header-background);
+    background: rgba(95, 94, 94, 0);
+    
     box-shadow: var(--shadow-card);
     transition: background 1s, top 0.3s;
     z-index: 200;
@@ -124,7 +125,8 @@ const posts = await getCollection("blog");
       top: -80px;
     }
     &:hover {
-      background: rgba(255, 255, 255, 0.95);
+      background: rgba(35, 33, 33, 0.91);
+      
     }
   }
 
@@ -178,7 +180,7 @@ const posts = await getCollection("blog");
   }
 
   :global(.nav-icon) {
-    color: var(--red-0);
+    color: #08f ;
     opacity: 0.8;
     text-decoration: none;
     transition: 0.2s;
@@ -194,16 +196,15 @@ const posts = await getCollection("blog");
       transform: scale(1.1);
     }
   }
+  :global([data-theme='dark']) & {
+    
 
-  :global([data-theme='dark']) {
-    #header-nav:hover {
-      background: var(--color-header-background);
-    }
-
-    :global(.nav-icon) {
-      color: var(--red-2);
+    :global(.nav-icon) & {
+      color: #08f ;
     }
   }
+  
+  
 
   #header-title {
     font-family:

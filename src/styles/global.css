@@ -1,65 +1,59 @@
 :root {
-  --red-0: #ff0000;
-  --red-1: #ff5252;
-  --red-2: #ff7c7c;
-  --red-3: #ffafaf;
-  --red-4: #ffd0d0;
-  --red-5: #ffecec;
-  --red-5-5: #fff3f3;
-  --red-6: #fff7f7;
-  --color-red-6-shadow: rgba(255, 78, 78, 0.6);
-  --color-red-3-shadow: rgba(255, 78, 78, 0.3);
-  --grey-9: #888;
-  --grey-7: var(--color-default);
+/* 基础色调改为深蓝/青色 */
+  --red-0: #0088ff;        /* 纯蓝 */
+  --red-1: #00d4ff;        /* 亮青色，用于链接和交互，匹配图片中的花丛光芒 */
+  --red-2: #3b82f6;        /* 天蓝色 */
+  --red-3: #93c5fd;        /* 浅蓝色，用于边框 */
+  --red-4: #e0f2fe;        /* 极浅蓝 */
+  --red-5: #f0f9ff;        /* 背景微调色 */
+  --red-5-5: #f8fafc;
+  --red-6: rgba(0, 212, 255, 0.2); /* 青色透明背景 */
+  
+  --color-red-6-shadow: rgba(0, 212, 255, 0.6); /* 青色发光阴影 */
+  --color-red-3-shadow: rgba(0, 136, 255, 0.3);
 
-  --color-archive-year: black;
-  --color-default: #444;
+  --grey-9: #64748b;
+  --grey-7: #454547;
+
+  /* 背景与链接 */
+  --color-archive-year: #1e293b;
+  --color-default: #334155;
   --color-border: var(--red-3);
-  --color-link: var(--red-1);
-  --color-background: #eee;
-  --color-code-background: #f8f8f8;
-  --color-header-background: rgba(255, 255, 255, 0.9);
-  --color-footer-background: #fff;
-  --color-mobile-nav-background: #fff;
-  --color-wrap: #fff;
+  --color-link: #0284c7;   /* 深一点的蓝色，确保文字可读性 */
+  --color-background: #f1f5f9;
+  --color-wrap: #ffffff;
 
-  --color-h2-border: #eee;
-  --color-meta-shadow: var(--red-6);
-  --color-hover-shadow: rgba(120, 120, 120, 0.15);
-  --color-h2-after: var(--red-1);
-
-  --shadow-meta: 0 0 5px 2px var(--color-meta-shadow);
-  --shadow-meta-hover: 0 0 6px 4px var(--color-meta-shadow);
-  --shadow-card: 0 0 10px 2px var(--color-hover-shadow);
-  --shadow-card-hover: 0 0 10px 4px var(--color-hover-shadow);
-  --shadow-red-6-shadow: 0 0 8px var(--color-red-6-shadow);
+  /* 阴影调整 */
+  --shadow-meta: 0 0 5px 2px var(--red-6);
+  --shadow-card: 0 2px 12px 0 rgba(0, 0, 0, 0.1);
+  --shadow-card-hover: 0 4px 16px 0 rgba(0, 136, 255, 0.2); /* 悬停时带有微弱蓝光 */
 }
 
 [data-theme="dark"]:root {
-  --red-0: var(--red-1);
-  --red-4: rgba(255, 208, 208, .5);
-  --red-5: rgba(255, 228, 228, .15);
-  --red-5-5: rgba(255, 236, 236, .05);
-  --red-6: rgba(255, 243, 243, .2);
+  --red-0: #38bdf8;
+  --red-1: #7dd3fc;
+  --red-4: rgba(125, 211, 252, .5);
+  --red-5: rgba(12, 74, 110, .15);
+  --red-5-5: rgba(15, 23, 42, .05);
+  --red-6: rgba(56, 189, 248, .2);
 
-  --color-archive-year: #999;
-  --color-default: #999;
-  --color-border: var(--red-5);
-  --color-background: #21252b;
-  --color-code-background: rgba(232, 232, 232, 0.2);
-  --color-header-background: #222222;
-  --color-footer-background: #21252b;
-  --color-mobile-nav-background: #21252b;
-  --color-wrap: #272b30;
+  --grey-7-dark: #a3a3a7;
+  --color-archive-year: #94a3b8;
+  --color-default: #cbd5e1;
+  --color-border: rgba(56, 189, 248, 0.3);
+  --color-background: #0f172a; /* 深邃夜空蓝 */
+  --color-header-background: #1e293b;
+  --color-footer-background: #0f172a;
+  --color-wrap: #1e293b; /* 卡片背景改为深石板色 */
 
-  --color-h2-border: #47474a;
-  --color-meta-shadow: rgba(0, 0, 0, 0.2);
-  --color-hover-shadow: rgba(0, 0, 0, 0.2);
+  --color-link: #38bdf8; /* 暗色模式下使用明亮的青蓝色 */
+  
+  --color-meta-shadow: rgba(0, 0, 0, 0.4);
+  --color-hover-shadow: rgba(0, 212, 255, 0.1);
 
   img {
-    filter: brightness(70%);
+    filter: brightness(80%) contrast(1.1); /* 稍微降低亮度，增加对比度适配夜空感 */
   }
-
   img.lazyloaded {
     opacity: 1;
     animation: blur-darken 0.8s ease-in-out forwards !important;

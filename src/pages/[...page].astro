@@ -11,6 +11,8 @@ import Footer from "../components/Footer.astro";
 import Pagination from "../components/Pagination.astro";
 import HeaderTitle from "../components/HeaderTitle.astro";
 import HeaderSubTitle from "../components/HeaderSubTitle.astro";
+import CategoryCard from '../components/CategoryCard.astro';
+
 
 type Props = {
   page: {
@@ -31,6 +33,24 @@ export async function getStaticPaths({ paginate }: { paginate: Function }) {
   });
 }
 const { page } = Astro.props;
+const allPosts = await getCollection("blog");
+
+const firstCat = "Blog"; 
+const firstCatPosts = allPosts.filter(post => 
+  post.data.categories && post.data.categories.includes(firstCat)
+);
+
+
+const secondCat = "Tutorial"; // 
+const secondCatPosts = allPosts.filter(post => 
+  post.data.categories && post.data.categories.includes(secondCat)
+);
+
+const totalCount = allPosts.length;
+
+
+
+
 ---
 
 <BaseLayout>
@@ -45,8 +65,26 @@ const { page } = Astro.props;
       />
     )
   }
+  
   <!-- Content -->
   <section id="main" aria-label="Main content">
+    {
+      page.currentPage === 1 && (
+        <div class="intro-wrapper">
+          <CategoryCard 
+          title= {firstCat}
+          count={firstCatPosts.length} 
+          backgroundImage="/astro-blog/images/mybanner.webp" 
+        />
+          <CategoryCard 
+          title={secondCat}
+          count={secondCatPosts.length} 
+          backgroundImage="/astro-blog/images/mybanner.webp" 
+        />
+    </div>
+      )
+    }
+  
     {
       page.data.map((post, index) => (
         <div class="post-wrapper">
@@ -119,6 +157,14 @@ const { page } = Astro.props;
 </BaseLayout>
 
 <style lang="stylus">
+  .intro-wrapper {
+    display flex;         
+    flex-direction row ;   
+    gap 20px;           
+    width 100%;            
+    margin-bottom 32px;        
+  }
+  
   .post-link {
     position: absolute;
     top: 0;
@@ -216,6 +262,14 @@ const { page } = Astro.props;
     }
   }
 
+
+  :global([data-theme='dark']) {
+    .post-meta span, .post-article{
+      color: var(--grey-7-dark)
+    }
+  }
+  
+      
   .post-article {
     display: -webkit-box;
     -webkit-box-orient: vertical;
@@ -224,10 +278,6 @@ const { page } = Astro.props;
     line-height: 32px;
     font-size: 15px;
     color: var(--grey-7);
-
-    a {
-      color: var(--color-link);
-    }
   }
 
   .post-cover {
@@ -284,12 +334,20 @@ const { page } = Astro.props;
 
   .post-title {
     padding: 20px 0;
-    color: var(--color-link);
+    color: #0d0d0eff;
     font-size: 25px;
     letter-spacing: 1px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     transition: color 0.3s;
+  }
+  :global([data-theme='dark']) {
+    .post-title{
+      color: #0088ff
+    }
+  }
+  #page-nav .current{
+    color: #020a11ff
   }
 </style>

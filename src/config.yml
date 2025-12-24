@@ -1,13 +1,13 @@
 site:
-  title: My Blog
-  subtitle: My Blog Subtitle
-  description: D-Sketon's blog
-  keywords: D-Sketon, blog, astro, theme
-  author: D-Sketon
+  title: 我的书架
+  subtitle: 梦里不知身是客
+  description: 四体不勤，五谷不分
+  keywords: 
+  author: Yongao
   language: zh-CN
 
 sidebar:
-  avatar: /images/avatar.webp
+  avatar: /images/myavatar.webp
   position: right # left or right
 
 menu:
@@ -18,7 +18,7 @@ menu:
   - name: about
     url: /about
 
-banner: "/images/banner.webp" # which means themes/reimu/source/images/banner.webp
+banner: "/images/mybanner.webp" # which means themes/reimu/source/images/banner.webp
 # You can also write it in the form of the following url
 # banner: "https://example.com"
 
@@ -30,7 +30,7 @@ banner_srcset:
       media: "(max-width: 479px)"
     - src: "/images/banner-800w.webp"
       media: "(max-width: 799px)"
-    - src: "/images/banner.webp"
+    - src: "/images/mybanner.webp"
       media: "(min-width: 800px)"
 
 footer:
@@ -46,11 +46,11 @@ analytics:
 
 social:
   # email: mailto:xxx@gmail.com
-  github: https://github.com/yourname
-  google: https://plus.google.com/yourname
+  github: https://github.com/wya-tt
+  # google: https://plus.google.com/yourname
   twitter: https://twitter.com/yourname
   facebook: https://www.facebook.com/yourname
-  # instagram: https://www.instagram.com/yourname
+  instagram: https://www.instagram.com/yaphets_ayw
   # linkedin: https://www.linkedin.com/in/yourname
   # pinterest: https://www.pinterest.com/yourname
   # youtube: https://www.youtube.com/channel/yourname
@@ -58,7 +58,7 @@ social:
   # flickr: https://www.flickr.com/photos/yourname
   # dribbble: https://dribbble.com/yourname
   # behance: https://www.behance.net/yourname
-  # bilibili: https://space.bilibili.com/yourname
+  bilibili: https://space.bilibili.com/257336180
   # weibo: https://weibo.com/yourname
   # zhihu: https://www.zhihu.com/people/yourname
   # reddit: https://www.reddit.com/user/yourname
@@ -68,7 +68,7 @@ social:
   # keybase: https://keybase.io/yourname
   # telegram: https://t.me/yourname
   # discord: https://discordapp.com/users/yourname
-  # steam: https://steamcommunity.com/id/yourname
+  steam: https://steamcommunity.com/profiles/76561198107641506/
 
 # https://valine.js.org
 valine:
