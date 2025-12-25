@@ -1,6 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import HeaderLink from "./HeaderLink.astro";
+import HeaderDropdown from "./HeaderDropdown.astro";
 import { __ } from "../utils/i18n";
 import { SITE, BASE_URL, MENU, BANNER, BANNER_SRCSET } from "../utils/config";
 import RssBtn from "./RssBtn";
@@ -29,11 +30,19 @@ const posts = await getCollection("blog");
 <div id="header-nav">
   <nav id="main-nav">
     {
-      MENU.map((item) => (
-        <HeaderLink href={`${BASE_URL}${item.url}`} aria-label={item.name}>
-          {__(item.name)}
-        </HeaderLink>
-      ))
+      MENU.map((item) => {
+        if (item.items && item.items.length > 0) {
+          return (
+            <HeaderDropdown label={__(item.name)} items={item.items} />
+          );
+        } else {
+          return (
+            <HeaderLink href={`${BASE_URL}${item.url}`} aria-label={item.name}>
+              {__(item.name)}
+            </HeaderLink>
+          );
+        }
+      })
     }
     <span
       id="main-nav-toggle"

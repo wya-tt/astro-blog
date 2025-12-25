@@ -59,13 +59,13 @@ const { isPost = false, headings = [], toc = true } = Astro.props;
   }
 
   .sidebar-wrapper {
-    transition: 0.3s;
+    transition: box-shadow 0.3s;
     flex: 1;
     min-height: 0;
     display: flex;
 
     :global(.aos-animate) {
-      transition-property: initial !important;
+      transition-property: box-shadow !important;
 
       &:hover {
         box-shadow: var(--shadow-card-hover);

@@ -72,14 +72,16 @@ const totalCount = allPosts.length;
       page.currentPage === 1 && (
         <div class="intro-wrapper">
           <CategoryCard 
-          title= {firstCat}
+          title={firstCat}
           count={firstCatPosts.length} 
-          backgroundImage="/astro-blog/images/mybanner.webp" 
+          backgroundImage="/astro-blog/images/mybanner.webp"
+          posts={firstCatPosts}
         />
           <CategoryCard 
           title={secondCat}
           count={secondCatPosts.length} 
-          backgroundImage="/astro-blog/images/mybanner.webp" 
+          backgroundImage="/astro-blog/images/mybanner.webp"
+          posts={secondCatPosts}
         />
     </div>
       )

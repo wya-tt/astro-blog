@@ -118,9 +118,15 @@ export interface SidebarConfig {
   avatar: string;
 }
 
-export interface MenuConfig {
+export interface MenuItemConfig {
   name: string;
   url: string;
+}
+
+export interface MenuConfig {
+  name: string;
+  url?: string;
+  items?: MenuItemConfig[];
 }
 
 export interface BannerSrcSetConfig {

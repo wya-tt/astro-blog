@@ -8,12 +8,15 @@ import { getCollection } from "astro:content";
 async function getStats() {
   const posts = await getCollection("blog");
   const allTags = new Set<string>();
+  const allCategories = new Set<string>();
   posts.forEach((post) => {
     post.data.tags?.forEach((tag: string) => allTags.add(tag));
+    post.data.categories?.forEach((category: string) => allCategories.add(category));
   });
   return {
     postCount: posts.length,
     tagCount: allTags.size,
+    categoryCount: allCategories.size,
   };
 }
 
@@ -35,31 +38,54 @@ const avatarUrl = `${BASE_URL}${SIDEBAR.avatar}`;
 </div>
 
 <div class="sidebar-state">
-  <div class="sidebar-state-article">
+  <a class="sidebar-state-article" href={`${BASE_URL}/archives`}>
     <div class="sidebar-state-number">{stats.postCount}</div>
     <div>{__("sidebar.post")}</div>
-  </div>
-  <div class="sidebar-state-tag">
+  </a>
+  <a class="sidebar-state-tag" href={`${BASE_URL}/tags`}>
     <div class="sidebar-state-number">{stats.tagCount}</div>
     <div>{__("sidebar.tag")}</div>
-  </div>
+  </a>
+  <a class="sidebar-state-category" href={`${BASE_URL}/archives/categories`}>
+    <div class="sidebar-state-number">{stats.categoryCount}</div>
+    <div>{__("sidebar.category")}</div>
+  </a>
 </div>
 
 <SocialList />
 
 <div class="sidebar-menu">
   {MENU.map((item) => {
-    const itemUrl = `${BASE_URL}${item.url}`;
-    const isActive = currentPath === itemUrl;
-    return (
-      <div class={`sidebar-menu-link-wrap ${isActive ? 'link-active' : ''}`}>
-        <a class="sidebar-menu-link-dummy" href={itemUrl}></a>
-        <div class="sidebar-menu-icon">
-          <Icon name="fa6-solid:yin-yang" size={24} />
+    if (item.name === 'posts' && item.items && item.items.length > 0) {
+      // 将"文章"展开为"归档"、"标签"、"分类"
+      return item.items.map((subItem) => {
+        const itemUrl = `${BASE_URL}${subItem.url}`;
+        const isActive = currentPath === itemUrl;
+        return (
+          <div class={`sidebar-menu-link-wrap ${isActive ? 'link-active' : ''}`}>
+            <a class="sidebar-menu-link-dummy" href={itemUrl}></a>
+            <div class="sidebar-menu-icon">
+              <Icon name="fa6-solid:yin-yang" size={24} />
+            </div>
+            <div class="sidebar-menu-link">{__(subItem.name)}</div>
+          </div>
+        );
+      });
+    } else if (item.url) {
+      // 普通菜单项
+      const itemUrl = `${BASE_URL}${item.url}`;
+      const isActive = currentPath === itemUrl;
+      return (
+        <div class={`sidebar-menu-link-wrap ${isActive ? 'link-active' : ''}`}>
+          <a class="sidebar-menu-link-dummy" href={itemUrl}></a>
+          <div class="sidebar-menu-icon">
+            <Icon name="fa6-solid:yin-yang" size={24} />
+          </div>
+          <div class="sidebar-menu-link">{__(item.name)}</div>
         </div>
-        <div class="sidebar-menu-link">{__(item.name)}</div>
-      </div>
-    );
+      );
+    }
+    return null;
   })}
 </div>
 
@@ -124,12 +150,15 @@ const avatarUrl = `${BASE_URL}${SIDEBAR.avatar}`;
       opacity: 1;
     }
 
-    > div {
+    > a {
       display: flex;
       flex-direction: column;
       flex-shrink: 0;
       align-items: center;
       padding: 0 20px;
+      text-decoration: none;
+      color: inherit;
+      cursor: pointer;
 
       div {
         margin: 4px 0;
@@ -142,6 +171,11 @@ const avatarUrl = `${BASE_URL}${SIDEBAR.avatar}`;
   }
 
   .sidebar-state-tag {
+    border-left: 1px solid var(--red-1);
+    border-right: 1px solid var(--red-1);
+  }
+
+  .sidebar-state-category {
     border-left: 1px solid var(--red-1);
   }
 
@@ -163,14 +197,11 @@ const avatarUrl = `${BASE_URL}${SIDEBAR.avatar}`;
     margin: 8px auto;
     justify-content: center;
     border: 10px var(--color-red-3-shadow) double;
-    transition: border 0.5s, background 0.5s, color 0.5s;
+    transition: background 0.5s;
+    background: transparent;
 
     &:hover {
-      border: 10px var(--color-h2-after) double;
-    }
-
-    &:hover .sidebar-menu-icon {
-      transform: rotate(90deg) scale(1.1);
+      background: var(--red-5);
     }
   }
 
@@ -178,13 +209,10 @@ const avatarUrl = `${BASE_URL}${SIDEBAR.avatar}`;
     color: var(--color-link);
     opacity: 0.8;
     text-decoration: none;
-    transition: opacity 0.2s, color 0.2s, transform 0.3s;
     display: flex;
     padding: 5px;
     align-items: center;
     pointer-events: none;
-    will-change: transform;
-    transform: rotate(90deg);
   }
 
   .sidebar-menu-link-dummy {
@@ -199,7 +227,6 @@ const avatarUrl = `${BASE_URL}${SIDEBAR.avatar}`;
     color: var(--color-link);
     opacity: 0.8;
     text-decoration: none;
-    transition: opacity 0.2s, color 0.2s;
     display: block;
     padding: 10px 15px;
     font-weight: 700;
@@ -211,10 +238,6 @@ const avatarUrl = `${BASE_URL}${SIDEBAR.avatar}`;
     border: 10px var(--color-wrap) double;
     box-shadow: var(--shadow-red-6-shadow);
     opacity: 0.8;
-
-    &:hover {
-      opacity: 1;
-    }
 
     .sidebar-menu-link {
       color: #fff;

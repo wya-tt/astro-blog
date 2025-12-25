@@ -3,12 +3,10 @@ import { getCollection, type CollectionEntry } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 import { __ } from "../../utils/i18n";
 import Footer from "../../components/Footer.astro";
-import TagList from "../../components/TagList.astro";
 import ArchiveList from "../../components/ArchiveList.astro";
 import Pagination from "../../components/Pagination.astro";
 import HeaderTitle from "../../components/HeaderTitle.astro";
 import { BASE_URL } from "../../utils/config";
-import CategoryList from "../../components/CategoryList.astro";
 
 export async function getStaticPaths({ paginate }: { paginate: Function }) {
   const posts = await getCollection("blog");
@@ -43,22 +41,6 @@ page.data.forEach((post) => {
     postsByYear.set(year, [post]);
   }
 });
-
-const posts = await getCollection("blog");
-const tags = new Set<string>();
-const categories = new Set<string>();
-posts.forEach((post) => {
-  if (Array.isArray(post.data.tags)) {
-    post.data.tags.forEach((tag) => {
-      tags.add(tag);
-    });
-  }
-  if (Array.isArray(post.data.categories)) {
-    post.data.categories.forEach((category) => {
-      categories.add(category);
-    });
-  }
-});
 ---
 
 <BaseLayout title={__("archive_a")}>
@@ -71,8 +53,6 @@ posts.forEach((post) => {
   <!-- Content -->
   <section id="main" aria-label="Main content">
     <div class="archives-outer-wrap" data-aos="fade-up">
-      <TagList tags={[...tags]} />
-      <CategoryList categories={[...categories]} />
       <ArchiveList page={page} type="archives" />
     </div>
     <Pagination

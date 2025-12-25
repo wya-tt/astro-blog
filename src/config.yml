@@ -13,8 +13,14 @@ sidebar:
 menu:
   - name: home
     url: /
-  - name: archives
-    url: /archives
+  - name: posts
+    items:
+      - name: archives
+        url: /archives
+      - name: tags
+        url: /tags
+      - name: categories
+        url: /archives/categories
   - name: about
     url: /about
 

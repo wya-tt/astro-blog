@@ -55,8 +55,27 @@ const {
         padding-top: 8px;
         align-items: stretch;
         max-width: 1550px;
-        margin: 0 auto;
+        margin: calc(35vh - 8px) auto 0;
         overflow: visible;
+        z-index: 1;
+      }
+      
+      @media screen and (min-width: 960px) {
+        main {
+          margin-top: calc(400px - 8px);
+        }
+      }
+      
+      @media screen and (max-width: 959px) {
+        main {
+          margin-top: calc(35vh - 8px);
+        }
+      }
+      
+      @media screen and (max-width: 767px) {
+        main {
+          margin-top: calc(35vh - 8px);
+        }
       }
     </style>
     <VendorScript />
